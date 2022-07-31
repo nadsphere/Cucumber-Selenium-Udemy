@@ -7,7 +7,7 @@
 mvn clean verify
 ```
 
-2) Or you can run ```testng.xml``` file
+2) Or you can run ```testng.xml``` file directly
 
 
 ## License
