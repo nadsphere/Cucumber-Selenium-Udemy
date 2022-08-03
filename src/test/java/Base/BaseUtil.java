@@ -11,5 +11,5 @@ public class BaseUtil {
     public static ExtentTest features;
 
     public static String
-            reportLocation = "C:/Users/Nadia/Documents/Learn/Cucumber with Selenium Java Udemy (Basic)/cucumber-selenium-udemy/report/";
+            reportLocation = "extent-report-result/";
 }
