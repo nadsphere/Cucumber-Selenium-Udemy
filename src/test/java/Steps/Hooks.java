@@ -24,7 +24,7 @@ public class Hooks extends BaseUtil {
 
     @AfterStep
     public void AfterTestExecution(Scenario scenario){
-        System.out.println("The execution scenario step Aft6er: " + scenario.getLine());
+        System.out.println("The execution scenario step After: " + scenario.getLine());
     }
 
     @After
