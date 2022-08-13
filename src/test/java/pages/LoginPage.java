@@ -17,6 +17,9 @@ public class LoginPage {
     @FindBy(how = How.NAME, using = "Login")
     public WebElement btnLogin;
 
+    @FindBy(how = How.XPATH, using = "//h2[contains(text(),'User 123')]")
+    public WebElement titleForm;
+
     public void Login(String userName, String password) throws Exception{
         txtUserName.sendKeys(userName);
         Thread.sleep(2000);
@@ -26,5 +29,9 @@ public class LoginPage {
 
     public void ClickLogin(){
         btnLogin.submit();
+    }
+
+    public boolean getTitleForm(){
+        return titleForm.isDisplayed();
     }
 }

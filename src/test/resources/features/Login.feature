@@ -9,6 +9,7 @@ Feature: Login Feature
     When I click login button
     Then I should see user form page
 
+  @Debug
   Scenario: Login with correct credential
     Given I navigate to login page
     And I enter following for login

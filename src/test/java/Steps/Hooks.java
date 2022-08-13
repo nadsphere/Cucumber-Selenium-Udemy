@@ -2,10 +2,14 @@ package Steps;
 
 import Base.BaseUtil;
 import io.cucumber.java.*;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.io.*;
+
 public class Hooks extends BaseUtil {
-    private BaseUtil base;
+    private final BaseUtil base;
 
     public Hooks(BaseUtil base) {
         this.base = base;
@@ -22,17 +26,19 @@ public class Hooks extends BaseUtil {
         System.out.println("The execution scenario step Before: " + scenario.getLine());
     }
 
-    @AfterStep
-    public void AfterTestExecution(Scenario scenario){
-        System.out.println("The execution scenario step After: " + scenario.getLine());
+    @After
+    public void AfterTest(){
+        base.driver.quit();
     }
 
-    @After
-    public void AfterTest(Scenario scenario){
+    @AfterStep
+    public void AddScreenshot(Scenario scenario) throws IOException {
+        WebDriver driver = base.driver;
         if(scenario.isFailed()){
-            System.out.println(scenario.getName());
+            File sourcePath = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+            byte [] fileContent = FileUtils.readFileToByteArray(sourcePath);
+            scenario.attach(fileContent, "image/png", "image-failed");
         }
-        System.out.println("Closing the browser...");
-        base.driver.quit();
+        System.out.println("The execution scenario step After: " + scenario.getLine());
     }
 }
