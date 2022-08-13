@@ -3,8 +3,7 @@ package Steps;
 import Base.BaseUtil;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
-import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.testng.Assert;
 import pages.*;
 
 import java.util.List;
@@ -40,19 +39,14 @@ public class LoginSteps extends BaseUtil {
     @Then("I should see user form page")
     public void iShouldSeeUserFormPage() throws Exception {
         UserForm uf = new UserForm(base.driver);
-        Assert.assertTrue("Is not displayed", uf.displayTitleForm());
+        Assert.assertTrue(uf.displayTitleForm(), "Is not displayed");
         Thread.sleep(3000);
-    }
-
-    @And("^I entered ([^\"]*) and ([^\"]*)")
-    public void iEnteredUsernameAndPassword(String userName, String passWord) {
     }
 
     @Then("I should see user form page wrongly")
     public void iShouldSeeUserFormPageWrongly() throws Exception {
-        WebElement titleForm = base.driver.
-                findElement(By.xpath("//h2[contains(text(),'User 123')]"));
-        Assert.assertTrue("Is not displayed", titleForm.isDisplayed());
+        LoginPage page = new LoginPage(base.driver);
+        Assert.assertTrue(page.getTitleForm(), "Is not displayed");
         Thread.sleep(3000);
     }
 }
