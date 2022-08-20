@@ -2,12 +2,14 @@
 
 
 ## How to excution this project?
-1) Way 1: Run this command to cmd/terminal: 
+**Way 1:** 
+Run this command to your terminal (Mac/Linux/UNIX) or CMD (Windows): 
 ```bash
 mvn clean verify
 ```
 
-2) Way 2: You can also run the ```testng.xml``` file directly
+**Way 2:**
+You can also run the ```testng.xml``` file directly
 
 
 ## License
