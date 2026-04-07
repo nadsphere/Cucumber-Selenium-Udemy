@@ -10,21 +10,21 @@ import java.util.List;
 
 public class LoginSteps extends BaseUtil {
     private final BaseUtil base;
-    private String strUrl;
+
     public LoginSteps(BaseUtil base) {
         this.base = base;
     }
 
     @Given("I navigate to login page")
     public void iNavigateToLoginPage() {
-        System.out.println("Navigate to login page");
-        strUrl = "https://demosite.executeautomation.com/";
-        base.driver.navigate().to(strUrl);
+        String url = base.getConfig("base.url");
+        System.out.println("Navigate to login page: " + url);
+        base.driver.navigate().to(url);
         base.driver.manage().window().maximize();
     }
 
     @And("I enter following for login")
-    public void iEnterFollowingForLogin(DataTable dataTable) throws Exception {
+    public void iEnterFollowingForLogin(DataTable dataTable) {
         List<List<String>> data = dataTable.cells();
         LoginPage page = new LoginPage(base.driver);
         page.Login(data.get(1).get(0), data.get(1).get(1));
@@ -37,16 +37,14 @@ public class LoginSteps extends BaseUtil {
     }
 
     @Then("I should see user form page")
-    public void iShouldSeeUserFormPage() throws Exception {
+    public void iShouldSeeUserFormPage() {
         UserForm uf = new UserForm(base.driver);
-        Assert.assertTrue(uf.displayTitleForm(), "Is not displayed");
-        Thread.sleep(3000);
+        Assert.assertTrue(uf.displayTitleForm(), "User form page is not displayed");
     }
 
     @Then("I should see user form page wrongly")
-    public void iShouldSeeUserFormPageWrongly() throws Exception {
+    public void iShouldSeeUserFormPageWrongly() {
         LoginPage page = new LoginPage(base.driver);
-        Assert.assertTrue(page.getTitleForm(), "Is not displayed");
-        Thread.sleep(3000);
+        Assert.assertTrue(page.getTitleForm(), "User form page is not displayed");
     }
 }

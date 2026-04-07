@@ -1,11 +1,21 @@
 package pages;
 
+import Base.BaseUtil;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.*;
+
+import java.time.Duration;
 
 public class LoginPage {
+    private final WebDriver driver;
+    private final int timeout;
+
     public LoginPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
+        BaseUtil base = new BaseUtil();
+        this.timeout = Integer.parseInt(base.getConfig("wait.timeout", "10"));
     }
 
     @FindBy(how = How.NAME, using = "UserName")
@@ -20,18 +30,24 @@ public class LoginPage {
     @FindBy(how = How.XPATH, using = "//h2[contains(text(),'User 123')]")
     public WebElement titleForm;
 
-    public void Login(String userName, String password) throws Exception{
-        txtUserName.sendKeys(userName);
-        Thread.sleep(2000);
-        txtPassWord.sendKeys(password);
-        Thread.sleep(2000);
+    private WebElement waitForElement(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public void ClickLogin(){
-        btnLogin.submit();
+    public void Login(String userName, String password) {
+        waitForElement(txtUserName).sendKeys(userName);
+        waitForElement(txtPassWord).sendKeys(password);
     }
 
-    public boolean getTitleForm(){
+    public void ClickLogin() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        wait.until(ExpectedConditions.elementToBeClickable(btnLogin)).submit();
+    }
+
+    public boolean getTitleForm() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        wait.until(ExpectedConditions.visibilityOf(titleForm));
         return titleForm.isDisplayed();
     }
 }
