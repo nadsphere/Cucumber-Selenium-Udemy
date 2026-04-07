@@ -1,4 +1,4 @@
-# Cucumber-Selenium-Udemy
+# Cucumber Selenium Udemy
 
 A BDD (Behavior-Driven Development) test automation project using Cucumber with Selenium WebDriver in Java. Demonstrates end-to-end UI testing with the Page Object Model pattern.
 
